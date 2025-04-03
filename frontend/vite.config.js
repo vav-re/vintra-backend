@@ -4,20 +4,16 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: '0.0.0.0',
-    port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'https://vintra-backend-565607878818.us-central1.run.app',
         changeOrigin: true,
-        secure: false,
-      }
+        secure: true, // true porque a URL é HTTPS válida
+      },
     },
-    // Adicionar configuração para Gitpod
     hmr: {
-      clientPort: 443
+      clientPort: 443, // necessário para Gitpod
     },
-    // Permitir qualquer host
-    allowedHosts: "3000-vavre-vintrabackend-uxgwnch64ja.ws-us118.gitpod.io"
-  }
+    allowedHosts: 'all', // libera qualquer host (incluindo *.gitpod.io)
+  },
 })

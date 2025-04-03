@@ -10,77 +10,12 @@ const PatientsList = () => {
     // In a real app, this would be an API call
     const fetchPatients = async () => {
       try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const mockPatients = [
-          { 
-            id: 1, 
-            name: 'João Silva', 
-            age: 48, 
-            gender: 'Masculino',
-            lastSession: '06/05/2024',
-            condition: 'Ansiedade generalizada'
-          },
-          { 
-            id: 2, 
-            name: 'Maria Oliveira', 
-            age: 35, 
-            gender: 'Feminino',
-            lastSession: '04/05/2024',
-            condition: 'Depressão pós-parto'
-          },
-          { 
-            id: 3, 
-            name: 'Pedro Santos', 
-            age: 42, 
-            gender: 'Masculino',
-            lastSession: '02/05/2024',
-            condition: 'Transtorno bipolar'
-          },
-          { 
-            id: 4, 
-            name: 'Carla Mendes', 
-            age: 29, 
-            gender: 'Feminino',
-            lastSession: '30/04/2024',
-            condition: 'Burnout'
-          },
-          { 
-            id: 5, 
-            name: 'Ricardo Alves', 
-            age: 51, 
-            gender: 'Masculino',
-            lastSession: '28/04/2024',
-            condition: 'Insônia persistente'
-          },
-          { 
-            id: 6, 
-            name: 'Ana Costa', 
-            age: 67, 
-            gender: 'Feminino',
-            lastSession: '25/04/2024',
-            condition: 'Transtorno de ansiedade'
-          },
-          { 
-            id: 7, 
-            name: 'Fernando Gomes', 
-            age: 39, 
-            gender: 'Masculino',
-            lastSession: '22/04/2024',
-            condition: 'TDAH'
-          },
-          { 
-            id: 8, 
-            name: 'Luísa Ferreira', 
-            age: 44, 
-            gender: 'Feminino',
-            lastSession: '18/04/2024',
-            condition: 'Estresse pós-traumático'
-          }
-        ];
-        
-        setPatients(mockPatients);
+        const response = await fetch('/api/pacientes');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar pacientes');
+        }
+        const data = await response.json();
+        setPatients(data);
       } catch (error) {
         console.error('Error fetching patients:', error);
       } finally {
