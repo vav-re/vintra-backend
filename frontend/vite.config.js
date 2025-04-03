@@ -1,16 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-    },
-  },
   server: {
+    host: '0.0.0.0',
     port: 3000,
     proxy: {
       '/api': {
@@ -18,6 +12,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       }
-    }
+    },
+    // Adicionar configuração para Gitpod
+    hmr: {
+      clientPort: 443
+    },
+    // Permitir qualquer host
+    allowedHosts: "3000-vavre-vintrabackend-uxgwnch64ja.ws-us118.gitpod.io"
   }
 })
